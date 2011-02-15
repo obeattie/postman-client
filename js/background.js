@@ -3,13 +3,13 @@
    -----
 */
 
-BS.host = 'localhost';
+BS.host = 'obeattie.com';
 BS.port = 8080;
 BS.baseUrl = ('http://' + BS.host + ':' + BS.port);
 
 // Subscribe via websockets
 BS.socket = new io.Socket(BS.host, {
-    'port': 8080
+    'port': BS.port
 });
 
 BS.socket.on('message', function(data){
