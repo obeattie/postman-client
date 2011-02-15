@@ -1,0 +1,17 @@
+{
+    "name": "Bookmark sharing",
+    "version": "1.0",
+    "description": "Sssh!",
+    "browser_action": {
+        "default_icon": "img/icon.png",
+        "default_title": "Share this page",
+        "default_popup": "popup.html"
+    },
+    "background_page": "background.html",
+    "options_page": "options.html",
+    "permissions": [
+        "http://*/",
+        "notifications",
+        "tabs"
+    ]
+}
