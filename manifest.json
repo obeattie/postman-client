@@ -11,7 +11,14 @@
     "options_page": "options.html",
     "permissions": [
         "http://*/",
+        "https://graph.facebook.com/",
         "notifications",
         "tabs"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["http://www.facebook.com/connect/login_success.html*"],
+            "js": ["js/underscore.min.js", "js/fb-interception.js"]
+        }
     ]
 }

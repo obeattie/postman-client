@@ -1,27 +1,38 @@
 <html>
     <head>
-        <script type="text/javascript" src="js/underscore.min.js"></script>
-        <script type="text/javascript" src="js/zepto.min.js"></script>
-        <script type="text/javascript" src="js/ui.js"></script>
+        <script src="js/underscore.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jsuri.js"></script>
+        <script src="js/jquery.autosuggest.js"></script>
+        <script src="http://static.ak.fbcdn.net/connect/en_US/core.js"></script>
+        <script src="js/ui.js"></script>
+        <script src="js/facebook.js"></script>
         
         <link rel="stylesheet" href="ui.css" />
+        <link rel="stylesheet" href="autosuggest.css" />
     </head>
     
     <body>
-        <form action="#" method="post" accept-charset="utf-8">
-            <label for="url">URL</label>
-            <input type="text" name="url" value="" id="url" disabled="true" />
+        <div id="content">
+            <form action="#" method="post" accept-charset="utf-8">
+                <label for="url">URL</label>
+                <input type="text" name="url" value="" id="url" disabled="true" />
+                
+                <!-- Hidden fields -->
+                <input type="text" name="title" value="" id="title" disabled="true" />
+                <input type="text" name="favicon" value="" id="favicon" disabled="true" />
+                
+                <label for="recipients">Recipients</label>
+                <input type="text" name="recipients" value="" id="recipients" />
+                
+                <input type="submit" value="Send" />
+            </form>
             
-            <!-- Hidden fields -->
-            <input type="text" name="title" value="" id="title" disabled="true" />
-            <input type="text" name="favicon" value="" id="favicon" disabled="true" />
-            
-            <label for="recipient">Recipient</label>
-            <input type="text" name="recipient" value="" id="recipient" />
-            
-            <input type="submit" value="Send" />
-        </form>
+            <ol id="link-list"></ol>
+        </div>
         
-        <ol id="link-list"></ol>
+        <div id="fb-init">
+            <a href="#">Connect with Facebook</a>
+        </div>
     </body>
 </html>

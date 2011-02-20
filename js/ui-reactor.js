@@ -22,6 +22,15 @@ BS.UIReactor = {
     
     getLinks: function(req, sendResponse){
         sendResponse(BS.Store.get());
+    },
+    
+    setFBToken: function(req, sendResponse){
+        localStorage['facebookToken'] = req.token;
+        sendResponse('ok');
+    },
+    
+    getFBToken: function(req, sendResponse){
+        sendResponse(localStorage['facebookToken'] || null);
     }
 }
 

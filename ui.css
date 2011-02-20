@@ -8,3 +8,7 @@ ol {
 label {
     display: block;
 }
+
+#fb-init { display: none; }
+body.fb-init #content { display: none; }
+body.fb-init #fb-init { display: block; }
