@@ -8,7 +8,7 @@
 BS.Store = {
     get: function(){
         // Returns all links in local storage
-        var links = localStorage['links'];
+        var links = localStorage['links']; 
         return (links ? JSON.parse(links) : []);
     },
     

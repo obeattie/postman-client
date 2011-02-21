@@ -8,7 +8,6 @@
         "default_popup": "popup.html"
     },
     "background_page": "background.html",
-    "options_page": "options.html",
     "permissions": [
         "http://*/",
         "https://graph.facebook.com/",

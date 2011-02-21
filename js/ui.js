@@ -47,9 +47,7 @@ $(document).ready(function(){
                 'title': $('#title').attr('value'),
                 'favicon': $('#favicon').attr('value'),
                 'recipient': $('#recipient').attr('value'),
-            }, function(response) {
-                console.log(response);
-            }
+            }, console.log
         );
     });
     
