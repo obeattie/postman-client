@@ -33,22 +33,24 @@ FB._domain = {
 $(document).ready(function(){
     // Insert the current tab's data into the form
     chrome.tabs.getSelected(null, function(tab){
-        $('#url').attr('value', tab.url);
-        $('#title').attr('value', tab.title);
-        $('#favicon').attr('value', tab.favIconUrl);
+        $('#url').val(tab.url);
+        $('#title').val(tab.title);
+        $('#favicon').val(tab.favIconUrl);
     });
     
     $('form').bind('submit', function(e){
         e.preventDefault();
+        console.log('a');
         chrome.extension.sendRequest(
             {
                 'method': 'sendLink',
-                'url': $('#url').attr('value'),
-                'title': $('#title').attr('value'),
-                'favicon': $('#favicon').attr('value'),
-                'recipient': $('#recipient').attr('value'),
+                'url': $('#url').val(),
+                'title': $('#title').val(),
+                'favicon': $('#favicon').val(),
+                'recipients': $('#recipients').val().split(','),
             }, console.log
         );
+        console.log('ab');
     });
     
     // Bind a live event handler to handle opening new tabs whenever a link
@@ -87,18 +89,10 @@ $(document).ready(function(){
             // Go ahead and build the autosuggest field with their friend list
             BS.Facebook.getFriends(function(response){
                 var friends = response.data;
-                
-                // Called when a selection is made. Used to limit the selections
-                var addedCb = function(item){
-                    console.log(this, item);
-                }
-                
-                BS.Suggester = $('#recipients').autoSuggest(friends, {
-                    'selectedItemProp': 'name',
-                    'searchObjProps': 'name',
-                    'selectedValuesProp': 'id',
-                    'keyDelay': 0,
-                    'selectionAdded': addedCb
+                friends.push({name: 'Oliver Beattie', id:'586115609'});
+                var filterFunc = _.bind(BS.FriendResultsFilter, BS, friends);
+                $('#recipients').tokenInput({
+                    filterResults: filterFunc
                 });
             });
         }

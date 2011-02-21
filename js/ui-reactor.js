@@ -8,16 +8,19 @@
 
 BS.UIReactor = {
     sendLink: function(link, sendResponse){
-        $.post(
-            (BS.baseUrl + '/send/' + link.recipient),
-            {
-                'url': link.url,
-                'title': link.title,
-                'favicon': link.favicon,
-                'sender': localStorage['username']
-            },
-            sendResponse
-        );
+        BS.Facebook.getId(function(uid){
+            $.post(
+                (BS.baseUrl + '/send/'),
+                {
+                    'url': link.url,
+                    'title': link.title,
+                    'favicon': link.favicon,
+                    'sender': uid,
+                    'recipients': JSON.stringify(link.recipients)
+                },
+                sendResponse
+            );
+        });
     },
     
     getLinks: function(req, sendResponse){
@@ -25,12 +28,12 @@ BS.UIReactor = {
     },
     
     setFBToken: function(req, sendResponse){
-        localStorage['facebookToken'] = req.token;
+        BS.Facebook.setToken(req.token);
         sendResponse('ok');
     },
     
     getFBToken: function(req, sendResponse){
-        sendResponse(localStorage['facebookToken'] || null);
+        sendResponse(BS.Facebook.getToken());
     }
 }
 

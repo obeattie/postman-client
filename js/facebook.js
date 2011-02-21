@@ -1,15 +1,29 @@
 /* -----
-   Abstractions for working with Facebook. Assumes working on the front-end.
+   Abstractions for working with Facebook. Usable from both front and back-end
+   (local storage is shared).
    
    @author obeattie
    -----
 */
 
 BS.Facebook = {
+    getToken: function(){
+        return (localStorage['facebookToken'] || null);
+    },
+    
+    setToken: function(token){
+        localStorage['facebookToken'] = token;
+    },
+    
+    _isAuthenticated: function(){
+        // Returns whether the user is logged-in to Facebook
+        return (this.getToken() != null);
+    },
+    
     _send: function(uri, params, cb){
         // Generate the uri
         params = (params || {});
-        params['access_token'] = BS.FBToken;
+        params['access_token'] = this.getToken();
         console.log(params);
         var uri = new jsUri(uri);
         _.each(params, function(value, key){
@@ -25,6 +39,10 @@ BS.Facebook = {
     _cachedFetch: function(key, uri, params, cb){
         // Internal function to make a cached FB call, calling a callback when
         // the result is available
+        if (!this._isAuthenticated()){
+            throw 'user is not logged in';
+        }
+        
         var fbData = localStorage['cachedFacebookData'];
         if (!fbData){
              fbData = {};
@@ -33,7 +51,7 @@ BS.Facebook = {
             fbData = JSON.parse(fbData);
         }
         
-        if (_.include(_.keys(fbData), key)){
+        if (key in fbData){
             // Return from cache if we can
             return cb(fbData[key]);
         } else {
@@ -55,6 +73,13 @@ BS.Facebook = {
     getFriends: function(cb){
         // Asynchronously gets the user's friend list
         return this._cachedFetch('friends', 'https://graph.facebook.com/me/friends', {}, cb);
+    },
+    
+    getId: function(cb){
+        // Asynchronously gets the user's Facebook ID
+        this.getUserData(function(response){
+            cb(response.id);
+        });
     }
 }
 
