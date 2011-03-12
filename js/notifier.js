@@ -34,24 +34,21 @@ var NotificationCenter = {
     },
     
     display: function(link){
-        BS.Facebook.getFriendNames(_.bind(function(friends){
-            var sender = friends[link.sender];
-            var id = this._store(link);
-            var url = 'notification.html?id=' + escape(id);
-            var notification = webkitNotifications.createHTMLNotification(url);
-            // Open the link in a new tab and close the notifiction when clicked
-            var closeNotification = _.bind(function(){
-                this.cancel();
-            }, notification);
-            notification.onclick = function(){
-                chrome.tabs.create({
-                    url: link.url
-                }, closeNotification);
-            }
-            notification.show();
-            // Close the notification automatically after 20 seconds
-            _.delay(closeNotification, 20000);
-        }, this));
+        var id = this._store(link);
+        var url = 'notification.html?id=' + escape(id);
+        var notification = webkitNotifications.createHTMLNotification(url);
+        // Open the link in a new tab and close the notifiction when clicked
+        var closeNotification = _.bind(function(){
+            this.cancel();
+        }, notification);
+        notification.onclick = function(){
+            chrome.tabs.create({
+                url: link.url
+            }, closeNotification);
+        }
+        notification.show();
+        // Close the notification automatically after 20 seconds
+        _.delay(closeNotification, 20000);
     }
 }
 

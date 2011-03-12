@@ -6,5 +6,5 @@ $(document).ready(function(){
     // Set the various page components to reflect the link
     $('h2').text(link.title);
     $('h2 a').attr('href', link.url);
-    $('p span').text(link.sender);
+    $('p span').text(link.senderName);
 });

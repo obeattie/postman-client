@@ -19,7 +19,7 @@ _.templateSettings = {
 };
 
 BS.templates = {
-    'linkItem': '<li style="list-style-image:url(\'{{ favicon }}\');"><a href="{{ url }}">{{ title }}</a><br />Sent by {{ sender }}</li>',
+    'linkItem': '<li style="list-style-image:url(\'{{ favicon }}\');"><a href="{{ url }}">{{ title }}</a><br />Sent by {{ senderName }}</li>',
     'fbAuthUrl': 'https://graph.facebook.com/oauth/authorize?type=user_agent&client_id={{ appId }}&redirect_uri=http://www.facebook.com/connect/login_success.html&scope=publish_stream'
 }
 

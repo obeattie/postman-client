@@ -18,14 +18,19 @@ BS.Store = {
         // list of those added as its argument (ie those that weren't already present,
         // since links is a set). This is asynchronous as it depends on getting
         // the FB friend list (which may need to be fetched)
-        BS.Facebook.getFriends(_.bind(function(response){
-            var friendIds = _.pluck(response.data, 'id');
+        BS.Facebook.getFriendNames(_.bind(function(friendNames){
+            var friendIds = _.keys(friendNames);
             var addedLinks = links;
             // First, exclude any links that weren't sent by one of the user's
             // friends
             console.log(friendIds, addedLinks);
             addedLinks = _.select(addedLinks, function(link){
                 return _.contains(friendIds, link.sender);
+            });
+            // Add the sender names to to the links
+            addedLinks = _.map(addedLinks, function(link){
+                link.senderName = friendNames[link.sender];
+                return link;
             });
             console.log(addedLinks);
             var storedLinks = this.get();
