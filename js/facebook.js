@@ -63,10 +63,11 @@ BS.Facebook = {
         }
     },
     
-    getUserData: function(cb){
+    getUserData: function(cb, uid){
         // Asynchronously gets the Facebook user data (async as we have
         // to fetch it if we don't know it already)
-        return this._cachedFetch('info', 'https://graph.facebook.com/me', {}, cb);
+        uid = (uid || 'me');
+        return this._cachedFetch('info', ('https://graph.facebook.com/' + uid), {}, cb);
     },
     
     getFriends: function(cb){

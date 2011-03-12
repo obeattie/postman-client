@@ -7,28 +7,28 @@ Authour: Adam Collingburn
 BODY
 *******************************************/
 html{
-	margin:0;
-	padding:0;
+    margin:0;
+    padding:0;
 }
 
 body{
-	height:471px;
-	width:260px;
-	background:#c2ae82 url(img/back.jpg) no-repeat;
-	margin-left:20px;
-	margin-top:10px;
-	margin-right:20px;
+    height:471px;
+    width:260px;
+    background:#c2ae82 url(img/back.jpg) no-repeat;
+    margin-left:20px;
+    margin-top:10px;
+    margin-right:20px;
 }
 
 h1{
-   	position:absolute;
-	width:250px;
-	height:50px;
-	margin:0;
-	top:30px;
-	left:25px;
-	text-indent:-9999em;
-	background: url(img/header.png) no-repeat top left;
+       position:absolute;
+    width:250px;
+    height:50px;
+    margin:0;
+    top:30px;
+    left:25px;
+    text-indent:-9999em;
+    background: url(img/header.png) no-repeat top left;
 }
 
 /******************************************
@@ -36,42 +36,42 @@ FORM
 *******************************************/
 
 #forms{
-	margin-top:90px;
+    margin-top:90px;
 }
 
 #url{
-	margin-top:8px;
-	width:250px;
-	height:25px;
-	border: 1px solid #000000;
-	font-size: 12px;
+    margin-top:8px;
+    width:250px;
+    height:25px;
+    border: 1px solid #000000;
+    font-size: 12px;
 }
 
 #forms #post{
-	margin-top: -5px;
-	margin-right:10px;
-	float:right;
-	width: 60px;
-	height:26px;
-	text-indent:-9999em;
-	background: url(img/post.jpg) no-repeat top left;
-	border:none;
+    margin-top: -5px;
+    margin-right:10px;
+    float:right;
+    width: 60px;
+    height:26px;
+    text-indent:-9999em;
+    background: url(img/post.jpg) no-repeat top left;
+    border:none;
 
-	
+    
 }
 
 #forms #post:hover{
-	margin-top: -5px;
-	margin-right:10px;
-	float:right;
-	width: 60px;
-	height:26px;
-	text-indent:-9999em;
-	background: url(img/post.jpg) no-repeat top left;
-	border:none;
-	-webkit-box-shadow: 1px 1px 5px #5b5b5b;
+    margin-top: -5px;
+    margin-right:10px;
+    float:right;
+    width: 60px;
+    height:26px;
+    text-indent:-9999em;
+    background: url(img/post.jpg) no-repeat top left;
+    border:none;
+    -webkit-box-shadow: 1px 1px 5px #5b5b5b;
 
-	
+    
 }
 
 /******************************************
@@ -79,30 +79,30 @@ POSTBOX
 *******************************************/
 
 ol{
-	background: url(img/post.png) no-repeat;
-	position:absolute;
-	width:290px;
-	height:459px;
-	overflow:visible;
-	list-style:none;
+    background: url(img/post.png) no-repeat;
+    position:absolute;
+    width:290px;
+    height:459px;
+    overflow:visible;
+    list-style:none;
 }
 
 ol li{
-	margin-left:10px;
-	margin-top:90px;
-	width:170px;
-	overflow:visible;
-	color:#ffffff;
-	font-size:15px;
+    margin-left:10px;
+    margin-top:90px;
+    width:170px;
+    overflow:visible;
+    color:#ffffff;
+    font-size:15px;
 }
 
 /******************************************
 FACEBOOK
 *******************************************/
 #fb-init{
-	position:absolute;
-	top:270px;
-	left:30px;
+    position:absolute;
+    top:270px;
+    left:30px;
 }
 
 #fb-init { display: none; }
