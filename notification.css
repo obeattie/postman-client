@@ -12,7 +12,7 @@ body {
     color: #393939;
     text-shadow: rgba(255, 255, 255, .5) 0 -1px 0;
     line-height: 1.6;
-    cursor: pointer;
+    overflow: hidden;
 }
 
 img {

@@ -20,19 +20,25 @@ BS.Facebook = {
         return (this.getToken() != null);
     },
     
-    _send: function(uri, params, cb){
+    _send: function(uri, params, cb, sendFunc){
+        sendFunc = (sendFunc || $.getJSON);
         // Generate the uri
         params = (params || {});
         params['access_token'] = this.getToken();
         var uri = new jsUri(uri);
         _.each(params, function(value, key){
             uri.deleteQueryParam(key);
-            uri.addQueryParam(key, value);
+            uri.addQueryParam(key, encodeURIComponent(value));
         });
         uri = uri.toString();
         console.log('calling fb api', uri);
         // Make the call
-        $.getJSON(uri, cb);
+        sendFunc(uri, cb);
+    },
+    
+    _post: function(uri, params, cb){
+        // Akin to _send, but POSTs rather than GETs
+        return this._send(uri, params, cb, $.post);
     },
     
     _cachedFetch: function(key, uri, params, cb){
@@ -96,6 +102,15 @@ BS.Facebook = {
                 friends[user.id] = user.name;
             });
             cb(friends);
+        });
+    },
+    
+    postLinkToWall: function(link, uid, cb){
+        // Posts the passed link to the specified user's Facebook wall.
+        // Asynchronous.
+        return this._post('https://graph.facebook.com/' + uid + '/feed', {
+            'link': link.url,
+            'name': link.title
         });
     }
 }
