@@ -1,5 +1,5 @@
 <html>
-    <head>
+<head>
         <script src="js/underscore.min.js"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/jsuri.js"></script>
@@ -11,29 +11,29 @@
         
         <link rel="stylesheet" href="ui.css" />
         <link rel="stylesheet" href="autosuggest.css" />
-    </head>
-    
-    <body>
-        <div id="content">
-            <form action="#" method="post" accept-charset="utf-8">
-                <label for="url">URL</label>
-                <input type="text" name="url" value="" id="url" disabled="true" />
-                
-                <!-- Hidden fields -->
-                <input type="text" name="title" value="" id="title" disabled="true" />
-                <input type="text" name="favicon" value="" id="favicon" disabled="true" />
-                
-                <label for="recipients">Recipients</label>
-                <input type="text" name="recipients" value="" id="recipients" />
-                
-                <input type="submit" value="Send" />
-            </form>
-            
-            <ol id="link-list"></ol>
-        </div>
+</head>
+<body>
+<div id="content">
+	<h1>Postman</h1>
+	<form action="#" method="post" id="forms" accept-charset="utf-8">
+		<img src="img/to.png" alt="To:" id="to" />
+		<br>
+		<label for="recipients" style="display:none;">Recipients</label>
+		<input type="text" name="recipients" value="" id="recipients" /><br><br>
+		<img src="img/url.png" alt="Link:" id="link" />
+		<label for="url" style="display:none;">URL</label>
+		<input type="text" name="url" value="" id="url" class="text" disabled="true" /><br><br>
+		
+		<input type="submit" value="Send" id="post" />
+	</form>
+	
+	<ol id="link-list"></ol>  
+
+	
+</div>
         
-        <div id="fb-init">
-            <a href="#">Connect with Facebook</a>
-        </div>
-    </body>
+<div id="fb-init">
+	<a href="#"><img src="img/fbcon.png" alt="Connect to Facebook"></a>
+</div>
+</body>
 </html>
