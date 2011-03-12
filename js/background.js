@@ -14,8 +14,9 @@ BS.socket = new io.Socket(BS.host, {
 
 BS.socket.on('message', function(data){
     data = JSON.parse(data);
-    var links = BS.Store.add(data.links);
-    _.each(links, NotificationCenter.display);
+    var links = BS.Store.add(data.links, function(addedLinks){
+        _.each(addedLinks, NotificationCenter.display);
+    });
 });
 
 // Connection function which can be called from any context

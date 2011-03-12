@@ -40,7 +40,6 @@ $(document).ready(function(){
     
     $('form').bind('submit', function(e){
         e.preventDefault();
-        console.log('a');
         chrome.extension.sendRequest(
             {
                 'method': 'sendLink',
@@ -50,7 +49,6 @@ $(document).ready(function(){
                 'recipients': $('#recipients').val().split(','),
             }, console.log
         );
-        console.log('ab');
     });
     
     // Bind a live event handler to handle opening new tabs whenever a link
@@ -89,7 +87,6 @@ $(document).ready(function(){
             // Go ahead and build the autosuggest field with their friend list
             BS.Facebook.getFriends(function(response){
                 var friends = response.data;
-                friends.push({name: 'Oliver Beattie', id:'586115609'});
                 var filterFunc = _.bind(BS.FriendResultsFilter, BS, friends);
                 $('#recipients').tokenInput({
                     filterResults: filterFunc

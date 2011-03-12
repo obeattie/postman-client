@@ -24,7 +24,6 @@ BS.Facebook = {
         // Generate the uri
         params = (params || {});
         params['access_token'] = this.getToken();
-        console.log(params);
         var uri = new jsUri(uri);
         _.each(params, function(value, key){
             uri.deleteQueryParam(key);
@@ -71,14 +70,31 @@ BS.Facebook = {
     },
     
     getFriends: function(cb){
-        // Asynchronously gets the user's friend list
-        return this._cachedFetch('friends', 'https://graph.facebook.com/me/friends', {}, cb);
+        // Asynchronously gets the user's friend list. Also includes the information
+        // for the logged-in user
+        return this._cachedFetch('friends', 'https://graph.facebook.com/me/friends', {}, _.bind(function(friendRepsonse){
+            this.getUserData(_.bind(function(userDataResponse){
+                this.data.push(userDataResponse);
+                cb(this);
+            }, friendRepsonse));
+        }, this));
     },
     
     getId: function(cb){
         // Asynchronously gets the user's Facebook ID
         this.getUserData(function(response){
             cb(response.id);
+        });
+    },
+    
+    getFriendNames: function(cb){
+        // Asynchronously returns a mapping of friends' user IDs to display names
+        this.getFriends(function(response){
+            var friends = {};
+            _.each(response.data, function(user){
+                friends[user.id] = user.name;
+            });
+            cb(friends);
         });
     }
 }
