@@ -108,5 +108,5 @@ BS.FriendResultsFilter = function(entries, query, cb){
     scores = scores.sort(function(a, b){return b[0] - a[0];});
     
     // Call the callback with the items
-    cb(_.pluck(scores, 1));
+    cb(_.pluck(scores, 1).slice(0, 10));
 }

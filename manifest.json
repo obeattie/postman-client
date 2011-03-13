@@ -2,8 +2,11 @@
     "name": "Postman",
     "version": "1.0",
     "description": "Sssh!",
+	"icons": {"16" :  "img/icon16.png",
+			  "48" :  "img/icon48.png",
+			  "128" : "img/icon128.png"},
     "browser_action": {
-        "default_icon": "img/icon.png",
+		"default_icon": "img/icon.png",
         "default_title": "Share this page",
         "default_popup": "popup.html"
     },

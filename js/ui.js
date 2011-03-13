@@ -19,7 +19,7 @@ _.templateSettings = {
 };
 
 BS.templates = {
-    'linkItem': '<li style="list-style-image:url(\'{{ favicon }}\');"><a href="{{ url }}">{{ title }}</a><br />Sent by {{ senderName }}</li>',
+    'linkItem': '<li style="list-style-image:url(\'{{ favicon }}\');"><a href="{{ url }}">{{ title }}</a><span>Sent by {{ sender }}</span></li>',
     'fbAuthUrl': 'https://graph.facebook.com/oauth/authorize?type=user_agent&client_id={{ appId }}&redirect_uri=http://www.facebook.com/connect/login_success.html&scope=publish_stream'
 }
 
@@ -30,11 +30,17 @@ FB._domain = {
     'www': 'https://www.facebook.com/'
 };
 
+// Truncation helper
+String.prototype.trunc = function(n){
+    return this.substr(0,n-1)+(this.length>n ? String.fromCharCode(8230) : '');
+};
+
 $(document).ready(function(){
     // Insert the current tab's data into the form
     chrome.tabs.getSelected(null, function(tab){
         $('#url').val(tab.url);
         $('#title').val(tab.title);
+        $('#titleDisplay').text(tab.title.trunc(25));
         $('#favicon').val(tab.favIconUrl);
     });
     
