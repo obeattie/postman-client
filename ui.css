@@ -12,7 +12,7 @@ html{
 }
 
 body{
-	height:471px;
+	height:455px;
 	width:260px;
 	background:#c2ae82 url(img/back.jpg) no-repeat;
 	margin-left:20px;
@@ -25,76 +25,140 @@ h1{
 	width:250px;
 	height:50px;
 	margin:0;
-	top:30px;
-	left:25px;
+	top:15px;
+	left:190px;
 	text-indent:-9999em;
 	background: url(img/header.png) no-repeat top left;
 }
+
+
 
 /******************************************
 FORM
 *******************************************/
 
-#forms{
-	margin-top:90px;
+span{
+    font-size:14px;
+    font-family: "helvetica neue", helvetica, arial;
+    color:#403b32;
 }
 
-#url{
-	margin-top:8px;
-	width:250px;
-	height:25px;
-	border: 1px solid #000000;
-	font-size: 12px;
+
+
+#forms{
+	margin-top:35px;
 }
+
+#recipients{
+    margin-top:10px;
+}
+
 
 #forms #post{
-	margin-top: -5px;
-	margin-right:10px;
+    position:absolute;
+    margin:0;
+    top: 0;
+    margin-left:210px;
 	float:right;
-	width: 60px;
-	height:26px;
+	width: 54px;
+	height:28px;
 	text-indent:-9999em;
-	background: url(img/post.jpg) no-repeat top left;
+	background: url(img/send.png) no-repeat top left;
 	border:none;
 
 	
 }
 
-#forms #post:hover{
-	margin-top: -5px;
-	margin-right:10px;
+#forms #post:active{
+    position:absolute;
+    margin-top: -51px;
+    margin-left:210px;
 	float:right;
-	width: 60px;
-	height:26px;
+	width: 54px;
+	height:28px;
 	text-indent:-9999em;
-	background: url(img/post.jpg) no-repeat top left;
+	background: url(img/sendh.png) no-repeat top left;
 	border:none;
-	-webkit-box-shadow: 1px 1px 5px #5b5b5b;
-
 	
+}
+
+#holder{
+    margin-top:10px;
+    position:relative;
 }
 
 /******************************************
 POSTBOX
 *******************************************/
-
-ol{
+#postbox{
 	background: url(img/post.png) no-repeat;
 	position:absolute;
 	width:290px;
-	height:459px;
-	overflow:visible;
+	height:399px;
+}
+
+ol{
+	height:300px;
+	width:140px;
+	overflow-y:scroll;
+	overflow-x:hidden;
 	list-style:none;
+	position:absolute;
+	margin-top:110px;
+	margin-left:40px;
+	z-index:1;
+	
 }
 
 ol li{
-	margin-left:10px;
-	margin-top:90px;
-	width:170px;
-	overflow:visible;
+    padding-bottom: 10px;
+	width:120px;
 	color:#ffffff;
 	font-size:15px;
+	font-family: "helvetica neue", helvetica, arial;
+	
 }
+
+ol li > a:link{
+	color: #3b8fd0;
+	font-family: "helvetica neue", helvetica, arial;
+	text-decoration:none;
+}
+
+ol li > a:visited{
+    color:#403b32;
+}
+
+
+ol li > a:hover{
+	text-decoration:underline;
+	cursor:pointer;
+}
+
+ol li span {
+    font-size: 11px;
+    display: block;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+	
+	
+::-webkit-scrollbar-track-piece {
+	background-color: #000;
+	-webkit-border-radius: 3px;
+}
+	
+::-webkit-scrollbar-thumb:vertical {
+	height: 50px;
+	background-color: #c22410;
+	-webkit-border-radius: 3px;
+}
+	
+
+
 
 /******************************************
 FACEBOOK
