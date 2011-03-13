@@ -19,7 +19,7 @@ _.templateSettings = {
 };
 
 BS.templates = {
-    'linkItem': '<li style="list-style-image:url(\'{{ favicon }}\');"><a href="{{ url }}">{{ title }}</a><span>Sent by {{ sender }}</span></li>',
+    'linkItem': '<li><img src="{{ favicon }}" alt="Favicon" /><div class="content"><a href="{{ url }}">{{ title }}</a><span>From {{ senderName }}</span></div></li>',
     'fbAuthUrl': 'https://graph.facebook.com/oauth/authorize?type=user_agent&client_id={{ appId }}&redirect_uri=http://www.facebook.com/connect/login_success.html&scope=publish_stream'
 }
 
@@ -77,6 +77,7 @@ $(document).ready(function(){
     chrome.extension.sendRequest({ 'method': 'getLinks' }, function(links){
         var linkList = $('#link-list');
         _.each(links, function(link){
+            link.favicon = (link.favicon || 'img/default_favicon.png');
             var element = _.template(BS.templates.linkItem, link);
             linkList.append(element);
         });
@@ -97,6 +98,7 @@ $(document).ready(function(){
                 $('#recipients').tokenInput({
                     filterResults: filterFunc
                 });
+                $('ul input').focus();
             });
         }
     });

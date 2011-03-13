@@ -13,6 +13,7 @@
     $.fn.tokenInput = function (options) {
         var settings = $.extend({
             hintText: "Type a friend's name...",
+            showHint: false,
             noResultsText: "No results",
             createText: "Create",
             searchDelay: 0,
@@ -499,9 +500,13 @@
         }
 
         function show_dropdown_hint () {
-            dropdown
-            .html("<p>"+settings.hintText+"</p>")
-            .show();
+            if (settings.showHint){
+                dropdown
+                .html("<p>"+settings.hintText+"</p>")
+                .show();
+            } else {
+                dropdown.hide();
+            }
             if(settings.defaultOptions) {
                 dropdown.find("a.defaultOptions").click(function(event) {
                     show_dropdown = true;

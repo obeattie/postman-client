@@ -1,29 +1,40 @@
+/* YUI reset */
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+
 /******************************************
 BODY
 *******************************************/
-html {
-    margin: 0;
-    padding: 0;
+
+html, body {
+    height: 490px;
+    max-height: 490px;
+    overflow: hidden;
 }
 
 body {
-    height: 455px;
     width: 260px;
-    background: #c2ae82 url('img/back.jpg') no-repeat;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-right: 20px;
+    background: -webkit-radial-gradient(center, 300px 700px, #e7ddc4, #c3ae83);
+    padding: 10px 20px 0 20px;
+    font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
 }
 
 h1 {
     position: absolute;
-    width: 250px;
-    height: 50px;
+    width: 100px;
+    height: 13px;
     margin: 0;
     top: 15px;
-    left: 190px;
+    right: 15px;
     text-indent: -9999em;
     background: url('img/header.png') no-repeat top left;
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
 }
 
 /******************************************
@@ -31,12 +42,12 @@ FORM
 *******************************************/
 
 span {
-    font-size: 14px;
+    font-size: 12px;
     color: #403b32;
 }
 
 #forms {
-    margin-top: 35px;
+    margin-top: 25px;
 }
 
 #recipients {
@@ -48,21 +59,22 @@ span {
     margin: 0;
     top: 0;
     margin-left: 210px;
+    z-index: 2;
     float: right;
     width: 54px;
-    height: 28px;
+    height: 27px;
     text-indent: -9999em;
-    background: url('img/send.png') no-repeat top left;
+    background: url('img/send-button.png') 0 0 no-repeat;
     border: none;
     cursor: pointer;
 }
 
 #forms #post:active {
-    background-image: url('img/sendh.png');
+    background-position: 0 -27px;
 }
 
 #holder {
-    margin-top: 10px;
+    margin-top: 5px;
     position: relative;
 }
 
@@ -71,65 +83,84 @@ POSTBOX
 *******************************************/
 #postbox {
     background: url('img/post.png') no-repeat;
-    position: absolute;
+    position: relative;
     width: 290px;
     height: 399px;
+    margin-top: 20px;
 }
 
-ol {
-    height: 300px;
-    width: 140px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    list-style: none;
-    position: absolute;
-    margin-top: 110px;
-    margin-left: 40px;
-    z-index: 1;
-}
-
-ol li {
-    padding-bottom: 10px;
-    width: 120px;
-    color: #ffffff;
-    font-size: 15px;
-}
-
-ol li > a:link {
-    color: #3b8fd0;
-    text-decoration: none;
-}
-
-ol li > a:visited {
-    color: #403b32;
-}
-
-
-ol li > a:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-ol li span {
-    font-size: 11px;
-    display: block;
-}
-
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-::-webkit-scrollbar-track-piece {
-    background-color: #000;
-    -webkit-border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:vertical {
-    height: 50px;
-    background-color: #c22410;
-    -webkit-border-radius: 3px;
-}
+    ol {
+        height: 304px;
+        width: 170px;
+        padding: 0;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        list-style: none;
+        position: relative;
+        top: 95px;
+        left: 50px;
+    }
+    
+        ol li {
+            color: #ffffff;
+            font-size: 13px;
+            clear: both;
+            line-height: 1.3;
+        }
+        
+            ol li + li {
+                padding-top: 10px;
+            }
+            
+            ol li a {
+                color: #3b8fd0;
+                text-decoration: none;
+                display: block;
+            }
+            
+/*            ol li a:visited {
+                color: #403b32;
+            }*/
+            
+            ol li a:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            
+            ol li span {
+                font-size: 11px;
+                display: block;
+                margin-top: 3px;
+            }
+            
+            ol li img {
+                float: left;
+                height: 16px;
+                width: 16px;
+            }
+            
+            ol li div.content {
+                float: left;
+                width: 127px;
+                margin: 0 0 0 10px;
+            }
+    
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    ::-webkit-scrollbar-track-piece {
+        background-color: #000;
+        -webkit-border-radius: 3px;
+        margin: 0 0 6px 0;
+    }
+    
+    ::-webkit-scrollbar-thumb:vertical {
+        height: 50px;
+        background-color: #c22410;
+        -webkit-border-radius: 3px;
+    }
 
 /******************************************
 FACEBOOK

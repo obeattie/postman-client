@@ -1,10 +1,10 @@
 /* Example tokeninput style #2: Facebook style */
 ul.token-input-list-facebook {
-    overflow: hidden; 
-    width: 210px ; 
+    overflow: hidden;
+    width: 209px;
     height: auto !important;
     height: 1%;
-    border: 1px solid #b8ab8d;
+    border: 1px solid #79705d;
     cursor: text;
     font-size: 12px;
     font-family: Verdana;
@@ -12,7 +12,8 @@ ul.token-input-list-facebook {
     z-index: 999;
     margin: 0;
     padding: 0;
-    -webkit-border-radius: 3px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
     background-color: #fff;
 }
 
@@ -29,10 +30,10 @@ ul.token-input-list-facebook li input {
 }
 
 li.token-input-token-facebook {
-    overflow: hidden; 
-    height: auto !important; 
+    overflow: hidden;
+    height: auto !important;
     margin: 3px;
-    padding: 1px 1px;
+    padding: 1px 3px;
     background-color: #eff2f7;
     color: #000;
     cursor: default;
@@ -52,9 +53,9 @@ li.token-input-token-facebook p {
 
 li.token-input-token-facebook span {
     color: #a6b3cf;
-    margin-left: 5px;
+    margin-left: 1px;
     font-weight: bold;
-    font-size:12px;
+    font-size: 12px;
     cursor: pointer;
 }
 
@@ -86,7 +87,7 @@ div.token-input-dropdown-facebook p {
     margin: 0;
     padding: 5px;
     font-weight: bold;
-    font-size:12px;
+    font-size: 12px;
     color: #777;
 }
 
@@ -111,7 +112,7 @@ div.token-input-dropdown-facebook ul li.token-input-dropdown-item2-facebook {
 div.token-input-dropdown-facebook ul li em {
     font-weight: bold;
     font-style: none;
-    font-size:12px;
+    font-size: 12px;
 }
 
 div.token-input-dropdown-facebook ul li.token-input-selected-dropdown-item-facebook {
