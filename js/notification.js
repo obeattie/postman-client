@@ -4,7 +4,7 @@ $(document).ready(function(){
     var link = NotificationCenter._pop(id);
     
     // Set the various page components to reflect the link
-    $('p a').text(link.title).attr('href', link.url);
+    $('a').text(link.title).attr('href', link.url);
     $('h2 strong').text(link.senderName);
     $('img').attr('src', 'http://graph.facebook.com/' + link.sender + '/picture');
 });
