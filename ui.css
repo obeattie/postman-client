@@ -44,7 +44,6 @@ span{
     margin-top:10px;
 }
 
-
 #forms #post{
     position:absolute;
     margin:0;
@@ -56,21 +55,10 @@ span{
     text-indent:-9999em;
     background: url(img/send.png) no-repeat top left;
     border:none;
-
-
 }
 
 #forms #post:active{
-    position:absolute;
-    margin-top: -51px;
-    margin-left:210px;
-    float:right;
-    width: 54px;
-    height:28px;
-    text-indent:-9999em;
-    background: url(img/sendh.png) no-repeat top left;
-    border:none;
-
+    background-image: url('img/sendh.png');
 }
 
 #holder{
@@ -135,7 +123,6 @@ ol li span {
     width: 6px;
     height: 6px;
 }
-
 
 ::-webkit-scrollbar-track-piece {
     background-color: #000;
