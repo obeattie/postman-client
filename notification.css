@@ -50,15 +50,3 @@ a {
     z-index: 1;
     top: 4px;
 }
-
-small {
-    display: block;
-    text-indent: -99999em;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 68px;
-    height: 68px;
-    background: url('img/ribbon.png');
-    z-index: 2;
-}
