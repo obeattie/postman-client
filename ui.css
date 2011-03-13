@@ -156,10 +156,54 @@ FACEBOOK
 *******************************************/
 #fb-init {
     position: absolute;
-    top: 270px;
-    left: 30px;
+    top: 227px;
+    left: 50px;
 }
 
 #fb-init { display: none; }
 body.fb-init #content { display: none; }
 body.fb-init #fb-init { display: block; }
+
+#fb-init a {
+    display: block;
+    text-indent: -99999em;
+    width: 201px;
+    height: 27px;
+    background: url('img/fbcon.png') 0 0 no-repeat;
+}
+
+    #fb-init a:active {
+        background-position: 0 -27px;
+    }
+
+/******************************************
+NOTIFICATIONS
+*******************************************/
+
+ul#alerts {
+    display: block;
+    list-style: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+    ul#alerts li {
+        display: block;
+        width: 100%;
+        font-size: 12px;
+        padding: 3px 20px;
+        cursor: default;
+        color: #fff;
+        border-bottom: 1px solid #fff;
+        background-image: -webkit-radial-gradient(center, 900px 100px, rgba(255, 255, 255, .6), transparent);;
+    }
+    
+        ul#alerts li.success {
+            background-color: #539b05;
+        }
+        
+        ul#alerts li.err {
+            background-color: #d32121;
+        }

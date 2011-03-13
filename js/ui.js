@@ -53,7 +53,13 @@ $(document).ready(function(){
                 'title': $('#title').val(),
                 'favicon': $('#favicon').val(),
                 'recipients': $('#recipients').val().split(','),
-            }, console.log
+            }, function(response){
+                if (response.status === 'ok'){
+                    BS.UIAlerts.success('Sent!')
+                } else {
+                    BS.UIAlerts.error('There was a problem sending your link')
+                }
+            }
         );
     });
     

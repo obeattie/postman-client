@@ -19,8 +19,9 @@ BS.UIReactor = {
                     'recipients': JSON.stringify(link.recipients)
                 },
                 function(response){
+                    console.log('Remote response', response);
                     if (response.status === 'ok'){
-                        return sendResponse(response);
+                        return sendResponse({ 'status': 'ok', 'extra': response });
                     } else {
                         // Post to the unknown recipients' FB walls
                         var missingRe = /^user:unknown:(.+)$/,
@@ -39,12 +40,12 @@ BS.UIReactor = {
                                 BS.Facebook.postLinkToWall(link, uid, function(fbResponse){
                                     cbCounter++;
                                     if (cbCounter === missingRecipients.length){
-                                        return sendResponse(fbResponse);
+                                        return sendResponse({ 'status': 'ok', 'extra': fbResponse });
                                     }
                                 });
                             });
                         } else {
-                            return sendResponse(response);
+                            return sendResponse({ 'status': 'err', 'extra': response });
                         }
                     }
                 }
