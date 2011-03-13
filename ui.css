@@ -1,117 +1,113 @@
 /******************************************
 BODY
 *******************************************/
-html{
-    margin:0;
-    padding:0;
+html {
+    margin: 0;
+    padding: 0;
 }
 
-body{
-    height:455px;
-    width:260px;
-    background:#c2ae82 url(img/back.jpg) no-repeat;
-    margin-left:20px;
-    margin-top:10px;
-    margin-right:20px;
+body {
+    height: 455px;
+    width: 260px;
+    background: #c2ae82 url('img/back.jpg') no-repeat;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-right: 20px;
 }
 
-h1{
-       position:absolute;
-    width:250px;
-    height:50px;
-    margin:0;
-    top:15px;
-    left:190px;
-    text-indent:-9999em;
-    background: url(img/header.png) no-repeat top left;
+h1 {
+    position: absolute;
+    width: 250px;
+    height: 50px;
+    margin: 0;
+    top: 15px;
+    left: 190px;
+    text-indent: -9999em;
+    background: url('img/header.png') no-repeat top left;
 }
 
 /******************************************
 FORM
 *******************************************/
 
-span{
-    font-size:14px;
-    font-family: "helvetica neue", helvetica, arial;
-    color:#403b32;
+span {
+    font-size: 14px;
+    color: #403b32;
 }
 
-#forms{
-    margin-top:35px;
+#forms {
+    margin-top: 35px;
 }
 
-#recipients{
-    margin-top:10px;
+#recipients {
+    margin-top: 10px;
 }
 
-#forms #post{
-    position:absolute;
-    margin:0;
+#forms #post {
+    position: absolute;
+    margin: 0;
     top: 0;
-    margin-left:210px;
-    float:right;
+    margin-left: 210px;
+    float: right;
     width: 54px;
-    height:28px;
-    text-indent:-9999em;
-    background: url(img/send.png) no-repeat top left;
-    border:none;
+    height: 28px;
+    text-indent: -9999em;
+    background: url('img/send.png') no-repeat top left;
+    border: none;
+    cursor: pointer;
 }
 
-#forms #post:active{
+#forms #post:active {
     background-image: url('img/sendh.png');
 }
 
-#holder{
-    margin-top:10px;
-    position:relative;
+#holder {
+    margin-top: 10px;
+    position: relative;
 }
 
 /******************************************
 POSTBOX
 *******************************************/
-#postbox{
-    background: url(img/post.png) no-repeat;
-    position:absolute;
-    width:290px;
-    height:399px;
+#postbox {
+    background: url('img/post.png') no-repeat;
+    position: absolute;
+    width: 290px;
+    height: 399px;
 }
 
-ol{
-    height:300px;
-    width:140px;
-    overflow-y:scroll;
-    overflow-x:hidden;
-    list-style:none;
-    position:absolute;
-    margin-top:110px;
-    margin-left:40px;
-    z-index:1;
-
+ol {
+    height: 300px;
+    width: 140px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    list-style: none;
+    position: absolute;
+    margin-top: 110px;
+    margin-left: 40px;
+    z-index: 1;
 }
 
-ol li{
+ol li {
     padding-bottom: 10px;
-    width:120px;
-    color:#ffffff;
-    font-size:15px;
-    font-family: "helvetica neue", helvetica, arial;
-
+    width: 120px;
+    color: #ffffff;
+    font-size: 15px;
 }
 
-ol li > a:link{
+ol li > a:link {
     color: #3b8fd0;
-    font-family: "helvetica neue", helvetica, arial;
-    text-decoration:none;
+    text-decoration: none;
 }
 
-ol li > a:visited{
-    color:#403b32;
+ol li > a:visited {
+    color: #403b32;
 }
 
 
-ol li > a:hover{
-    text-decoration:underline;
-    cursor:pointer;
+ol li > a:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 ol li span {
@@ -138,10 +134,10 @@ ol li span {
 /******************************************
 FACEBOOK
 *******************************************/
-#fb-init{
-    position:absolute;
-    top:270px;
-    left:30px;
+#fb-init {
+    position: absolute;
+    top: 270px;
+    left: 30px;
 }
 
 #fb-init { display: none; }
