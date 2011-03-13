@@ -1,37 +1,38 @@
 <html>
 <head>
-        <script src="js/underscore.min.js"></script>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/jsuri.js"></script>
-        <script src="js/jquery.tokeninput.js"></script>
-        <script src="http://static.ak.fbcdn.net/connect/en_US/core.js"></script>
-        <script src="js/ui.js"></script>
-        <script src="js/friend-filter.js"></script>
-        <script src="js/facebook.js"></script>
-        
-        <link rel="stylesheet" href="ui.css" />
-        <link rel="stylesheet" href="autosuggest.css" />
+    <script src="js/underscore.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jsuri.js"></script>
+    <script src="js/jquery.tokeninput.js"></script>
+    <script src="http://static.ak.fbcdn.net/connect/en_US/core.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/friend-filter.js"></script>
+    <script src="js/facebook.js"></script>
+    
+    <link rel="stylesheet" href="ui.css" />
+    <link rel="stylesheet" href="autosuggest.css" />
 </head>
 <body>
 <div id="content">
     <h1>Postman</h1>
     <form action="#" method="post" id="forms" accept-charset="utf-8">
-		<span id="send-to"><strong>Send</strong> "<span id="titleDisplay"></span>" to:</span><br>
-       	
-		<div id="holder">        
-	       	<label for="recipients" style="display:none;">Recipients</label>
-	       	<input type="text" name="recipients" value="" id="recipients" />
-               
-	        <input type="hidden" name="title" value="" id="title" />
-	        <input type="hidden" name="favicon" value="" id="favicon" />
+        <span id="send-to"><strong>Send</strong> "<span id="titleDisplay"></span>" to:</span><br>
         
-	        <input type="submit" value="Send" id="post" />
-		</div>
+        <div id="holder">
+            <label for="recipients" style="display:none;">Recipients</label>
+            <input type="text" name="recipients" value="" id="recipients" />
+            
+            <input type="hidden" name="title" value="" id="title" />
+            <input type="hidden" name="favicon" value="" id="favicon" />
+            
+            <input type="submit" value="Send" id="post" />
+        </div>
     </form>
+    
     <span id="postbox"></span>
     <ol id="link-list"></ol>
 </div>
-        
+
 <div id="fb-init">
     <a href="#"><img src="img/fbcon.png" alt="Connect to Facebook"></a>
 </div>
