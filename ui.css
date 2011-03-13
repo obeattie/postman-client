@@ -6,27 +6,16 @@ BODY
 *******************************************/
 
 html, body {
-    height: 490px;
-    max-height: 490px;
+    height: 480px;
+    max-height: 480px;
     overflow: hidden;
 }
 
 body {
     width: 260px;
-    background: -webkit-radial-gradient(center, 300px 700px, #e7ddc4, #c3ae83);
+    background: -webkit-radial-gradient(center, 300px 700px, #f2ecdd, #c3ae83);
     padding: 10px 20px 0 20px;
     font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
-}
-
-h1 {
-    position: absolute;
-    width: 100px;
-    height: 13px;
-    margin: 0;
-    top: 15px;
-    right: 15px;
-    text-indent: -9999em;
-    background: url('img/header.png') no-repeat top left;
 }
 
 strong {
@@ -47,7 +36,7 @@ span {
 }
 
 #forms {
-    margin-top: 25px;
+    margin-top: 15px;
 }
 
 #recipients {
