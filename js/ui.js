@@ -46,21 +46,38 @@ $(document).ready(function(){
     
     $('form').bind('submit', function(e){
         e.preventDefault();
-        chrome.extension.sendRequest(
-            {
-                'method': 'sendLink',
-                'url': $('#url').val(),
-                'title': $('#title').val(),
-                'favicon': $('#favicon').val(),
-                'recipients': $('#recipients').val().split(','),
-            }, function(response){
-                if (response.status === 'ok'){
-                    BS.UIAlerts.success('Sent!')
-                } else {
-                    BS.UIAlerts.error('There was a problem sending your link')
+        var recipients = $('#recipients').val().split(',');
+        recipients = _.select(recipients, _.identity);
+        
+        if (recipients.length){
+            chrome.extension.sendRequest(
+                {
+                    'method': 'sendLink',
+                    'url': $('#url').val(),
+                    'title': $('#title').val(),
+                    'favicon': $('#favicon').val(),
+                    'recipients': recipients,
+                }, function(response){
+                    if (response.status === 'ok'){
+                        BS.UIAlerts.success('Sent!')
+                        // Reset the form
+                        $('#recipients').trigger('reset');
+                    } else {
+                        BS.UIAlerts.error('There was a problem sending your link')
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            // Flash the input field background red
+            $('#recipients + ul, #recipients + ul input')
+            .css('background-color', '#fffff')
+            .animate({
+                'background-color': '#ffd5d3'
+            }, 100)
+            .animate({
+                'background-color': '#ffffff'
+            }, 100);
+        }
     });
     
     // Bind a live event handler to handle opening new tabs whenever a link

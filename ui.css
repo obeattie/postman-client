@@ -67,6 +67,14 @@ span {
     position: relative;
 }
 
+#friendPlaceholder {
+    position: absolute;
+    cursor: text;
+    color: #666767;
+    top: 7px;
+    left: 11px;
+}
+
 /******************************************
 POSTBOX
 *******************************************/

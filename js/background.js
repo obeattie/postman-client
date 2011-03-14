@@ -28,7 +28,7 @@ BS.socket.on('connect_failed', BS.socketConnect);
 
 // Send the listening command on socket connection
 BS.socket.on('connect', function(){
-    console.log('Socket connected. Sending initialization.')
+    console.log('Socket connected. Sending initialization.');
     BS.Facebook.getId(function(uid){
         BS.socket.send(JSON.stringify({
             'method': 'listen',

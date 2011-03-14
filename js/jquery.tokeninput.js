@@ -12,7 +12,7 @@
 
     $.fn.tokenInput = function (options) {
         var settings = $.extend({
-            hintText: "Type a friend's name...",
+            hintText: ("Type friends' names" + String.fromCharCode(8230)),
             showHint: false,
             noResultsText: "No results",
             createText: "Create",
@@ -163,6 +163,7 @@
                         return false;
                     } else if($(this).val().length == 1) {
                         hide_dropdown();
+                        show_placeholder();
                     } else {
                         // set a timeout just long enough to let this function finish.
                         setTimeout(function(){
@@ -193,6 +194,7 @@
                         setTimeout(function(){
                             do_search(false);
                         }, 5);
+                        hide_placeholder();
                     }
                     break;
             }
@@ -208,6 +210,13 @@
         })
         .blur(function () {
             input_box.blur();
+        });
+        
+        // Show/hide the placeholder as necessary
+        $(input_box).keyup(function(){
+            if (!(hidden_input.val().length || input_box.val().length)){
+                show_placeholder();
+            }
         });
 
         // Keep a reference to the selected token and dropdown item
@@ -267,6 +276,19 @@
         .addClass(settings.classes.inputToken)
         .appendTo(token_list)
         .append(input_box);
+        
+        // Placeholder
+        var placeholderEl = $('<span id="friendPlaceholder"></span>')
+        .text(settings.hintText)
+        .hide()
+        .click(function(){
+            input_box.focus();
+        })
+        .insertBefore(hidden_input);
+        
+        if (!input_box.val().length){
+            show_placeholder();
+        }
 
         init_list();
 
@@ -488,6 +510,20 @@
                 data: token_data
             });
         }
+        
+        // Deletes all active selections and returns to an initial state
+        function reset(){
+            token_list.find('li').each(function(i, el){
+                delete_token(i);
+            });
+            input_box.val('');
+            hidden_input.val('');
+            show_placeholder();
+        }
+        
+        hidden_input.bind('reset', _.bind(function(){
+            _.bind(reset, this)();
+        }, this));
 
         // Hide and clear the results dropdown
         function hide_dropdown () {
@@ -683,6 +719,14 @@
                 
                 settings.filterResults(query, callback);
             }
+        }
+        
+        function show_placeholder(){
+            placeholderEl.show();
+        }
+        
+        function hide_placeholder(){
+            placeholderEl.hide();
         }
     };
 
