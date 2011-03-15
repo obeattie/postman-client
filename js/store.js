@@ -6,10 +6,30 @@
 */
 
 BS.Store = {
-    get: function(){
-        // Returns all links in local storage
+    _get: function(){
         var links = localStorage['links']; 
-        return (links ? JSON.parse(links) : []);
+        return (links ? JSON.parse(links) : {});
+    },
+    
+    get: function(id){
+        // Returns all links in local storage (as a list), unless an id was
+        // passed, in which case, return just that one link
+        var links = this._get();
+        if (_.isUndefined(id)){
+            return _.sortBy(_.values(links), function(link){
+                // Quick and dirty reverse sort
+                return (0 - link.timestamp);
+            });
+        } else {
+            return links[id];
+        }
+    },
+    
+    getUnviewed: function(){
+        // Returns all new links (ie those that haven't been viewed)
+        return _.reject(this.get(), function(link){
+            return link.viewed;
+        });
     },
     
     add: function(links, cb){
@@ -19,31 +39,48 @@ BS.Store = {
         // since links is a set). This is asynchronous as it depends on getting
         // the FB friend list (which may need to be fetched)
         BS.Facebook.getFriendNames(_.bind(function(friendNames){
+            // First, exclude any links not sent by the user's friends
             var friendIds = _.keys(friendNames);
-            var addedLinks = links;
-            // First, exclude any links that weren't sent by one of the user's
-            // friends
-            console.log(friendIds, addedLinks);
-            addedLinks = _.select(addedLinks, function(link){
+            links = _.select(links, function(link){
                 return _.contains(friendIds, link.sender);
             });
             // Add the sender names to to the links
-            addedLinks = _.map(addedLinks, function(link){
+            links = _.map(links, function(link){
                 link.senderName = friendNames[link.sender];
+                link.viewed = (link.viewed || false);
                 return link;
             });
-            console.log(addedLinks);
-            var storedLinks = this.get();
-            // Ghetto-fab way to get the set difference (there has to be an easier way)
-            addedLinks = _.map(addedLinks, function(link){
-                return (_.include(storedLinks, link) ? null : link);
+            var addedLinks = [];
+            var storage = this._get();
+            console.log(links);
+            _.each(links, function(link){
+                if (!(link.id in storage)){
+                    storage[link.id] = link;
+                    addedLinks.push(link);
+                }
             });
-            addedLinks = _.without(addedLinks, null);
-            storedLinks = _.uniq(_.flatten([addedLinks, storedLinks]));
             // Store and return
-            localStorage['links'] = JSON.stringify(storedLinks);
+            localStorage['links'] = JSON.stringify(storage);
+            this.updateUnviewedCount();
             cb(addedLinks);
         }, this));
+    },
+    
+    markViewed: function(id){
+        // Marks the link with the passed id as viewed
+        var links = this._get();
+        links[id].viewed = true;
+        localStorage['links'] = JSON.stringify(links);
+        this.updateUnviewedCount();
+    },
+    
+    updateUnviewedCount: function(){
+        // Slightly misplaced function to update any unviewed link counters
+        // (currently just the toolbar icon badge)
+        console.log('Updating unviewed counters');
+        chrome.browserAction.setBadgeText({
+            'text': this.getUnviewed().length.toString()
+        });
     }
 }
 

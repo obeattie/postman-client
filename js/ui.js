@@ -19,7 +19,7 @@ _.templateSettings = {
 };
 
 BS.templates = {
-    'linkItem': '<li><img src="{{ favicon }}" alt="Favicon" /><div class="content"><a href="{{ url }}">{{ title }}</a><span>From {{ senderName }}</span></div></li>',
+    'linkItem': '<li linkId="{{ id }}" class="{{ cls }}"><img src="{{ favicon }}" alt="Favicon" /><div class="content"><a href="{{ url }}">{{ title }}</a><span>From {{ senderName }}</span></div></li>',
     'fbAuthUrl': 'https://graph.facebook.com/oauth/authorize?type=user_agent&client_id={{ appId }}&redirect_uri=http://www.facebook.com/connect/login_success.html&scope=publish_stream'
 }
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
         $('#favicon').val(tab.favIconUrl);
     });
     
-    $('form').bind('submit', function(e){
+    $('form').submit(function(e){
         e.preventDefault();
         var recipients = $('#recipients').val().split(',');
         recipients = _.select(recipients, _.identity);
@@ -84,10 +84,16 @@ $(document).ready(function(){
     // is clicked
     $('a').live('click', function(e){
         e.preventDefault();
+        var link = $(this).closest('li').data('link');
         chrome.tabs.create({
-            url: $(this).attr('href')
+            url: link.url
         }, function(){
             // Hackishly close the popup
+            // Mark as viewed
+            chrome.extension.sendRequest({
+                'method': 'markViewed',
+                'id': link.id
+            });
             chrome.tabs.getSelected(null, function(tab) {
                 chrome.tabs.update(tab.id, {
                     'selected': true
@@ -101,7 +107,9 @@ $(document).ready(function(){
         var linkList = $('#link-list');
         _.each(links, function(link){
             link.favicon = (link.favicon || 'img/default_favicon.png');
-            var element = _.template(BS.templates.linkItem, link);
+            link.cls = (link.viewed ? 'viewed' : 'new');
+            var element = $(_.template(BS.templates.linkItem, link));
+            element.data('link', link);
             linkList.append(element);
         });
     });

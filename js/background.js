@@ -9,11 +9,13 @@ BS.baseUrl = ('http://' + BS.host + ':' + BS.port);
 
 // Subscribe via websockets
 BS.socket = new io.Socket(BS.host, {
-    'port': BS.port
+    'port': BS.port,
+    'rememberTransport': false
 });
 
 BS.socket.on('message', function(data){
     data = JSON.parse(data);
+    console.log('BS.socket.on:message:', data);
     var links = BS.Store.add(data.links, function(addedLinks){
         _.each(addedLinks, NotificationCenter.display);
     });
@@ -38,4 +40,4 @@ BS.socket.on('connect', function(){
 });
 
 // When the page is ready, connect the socket
-$(document).ready(BS.socketConnect);
+$(document).ready(BS.socketConnect).ready(BS.Store.updateUnviewedCount);

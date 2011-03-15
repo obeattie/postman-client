@@ -64,11 +64,22 @@ BS.UIReactor = {
     
     getFBToken: function(req, sendResponse){
         sendResponse(BS.Facebook.getToken());
+    },
+    
+    markViewed: function(req, sendResponse){
+        BS.Store.markViewed(req.id);
+        sendResponse('ok');
+    },
+    
+    updateUnviewedCount: function(req, sendResponse){
+        BS.Store.updateUnviewedCount();
+        sendResponse('ok');
     }
 }
 
 // Dispatcher
 chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
     console.log('Request from UI: ' + req.method, req);
+    sendResponse = (_.isUndefined(sendResponse) ? _.identity : sendResponse);
     return BS.UIReactor[req.method](req, sendResponse);
 });

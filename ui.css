@@ -87,9 +87,9 @@ POSTBOX
 }
 
     ol {
-        height: 304px;
+        height: 294px;
         width: 170px;
-        padding: 0;
+        padding: 0 0 10px 0;
         overflow-y: scroll;
         overflow-x: hidden;
         list-style: none;
@@ -115,10 +115,6 @@ POSTBOX
                 display: block;
             }
             
-/*            ol li a:visited {
-                color: #403b32;
-            }*/
-            
             ol li a:hover {
                 text-decoration: underline;
                 cursor: pointer;
@@ -140,6 +136,11 @@ POSTBOX
                 float: left;
                 width: 127px;
                 margin: 0 0 0 10px;
+            }
+            
+            ol li.viewed img,
+            ol li.viewed a {
+                opacity: .6;
             }
     
     ::-webkit-scrollbar {
