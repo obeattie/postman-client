@@ -126,6 +126,11 @@ POSTBOX
                 margin-top: 3px;
             }
             
+                ol li span a {
+                    color: inherit;
+                    display: inline;
+                }
+            
             ol li img {
                 float: left;
                 height: 16px;

@@ -79,7 +79,7 @@ BS.Store = {
         // (currently just the toolbar icon badge)
         console.log('Updating unviewed counters');
         chrome.browserAction.setBadgeText({
-            'text': this.getUnviewed().length.toString()
+            'text': (this.getUnviewed().length || '').toString()
         });
     }
 }

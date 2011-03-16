@@ -19,7 +19,7 @@ _.templateSettings = {
 };
 
 BS.templates = {
-    'linkItem': '<li linkId="{{ id }}" class="{{ cls }}"><img src="{{ favicon }}" alt="Favicon" /><div class="content"><a href="{{ url }}">{{ title }}</a><span>From {{ senderName }}</span></div></li>',
+    'linkItem': '<li linkId="{{ id }}" class="{{ cls }}"><img src="{{ favicon }}" alt="Favicon" /><div class="content"><a href="{{ url }}" class="link">{{ title }}</a><span>From <a href="http://www.facebook.com/profile.php?id={{ sender }}">{{ senderName }}</a></span></div></li>',
     'fbAuthUrl': 'https://graph.facebook.com/oauth/authorize?type=user_agent&client_id={{ appId }}&redirect_uri=http://www.facebook.com/connect/login_success.html&scope=publish_stream'
 }
 
@@ -34,6 +34,15 @@ FB._domain = {
 String.prototype.trunc = function(n){
     return this.substr(0,n-1)+(this.length>n ? String.fromCharCode(8230) : '');
 };
+
+// Link render
+BS.RenderLink = function(link){
+    link.favicon = (link.favicon || 'img/default_favicon.png');
+    link.cls = (link.viewed ? 'viewed' : 'new');
+    var element = $(_.template(BS.templates.linkItem, link));
+    element.data('link', link);
+    return element;
+}
 
 $(document).ready(function(){
     // Insert the current tab's data into the form
@@ -84,20 +93,21 @@ $(document).ready(function(){
     // is clicked
     $('a').live('click', function(e){
         e.preventDefault();
-        var link = $(this).closest('li').data('link');
+        // Link only if this is a.link
+        var link = ($(this).is('a.link') ? $(this).closest('li').data('link') : null);
         chrome.tabs.create({
-            url: link.url
+            url: $(this).attr('href')
         }, function(){
-            // Hackishly close the popup
             // Mark as viewed
-            chrome.extension.sendRequest({
-                'method': 'markViewed',
-                'id': link.id
-            });
-            chrome.tabs.getSelected(null, function(tab) {
-                chrome.tabs.update(tab.id, {
-                    'selected': true
+            if (link){
+                chrome.extension.sendRequest({
+                    'method': 'markViewed',
+                    'id': link.id
                 });
+            }
+            // Hackishly close the popup
+            chrome.tabs.getSelected(null, function(tab) {
+                chrome.tabs.update(tab.id, { 'selected': true });
             });
         });
     });
@@ -106,12 +116,26 @@ $(document).ready(function(){
     chrome.extension.sendRequest({ 'method': 'getLinks' }, function(links){
         var linkList = $('#link-list');
         _.each(links, function(link){
-            link.favicon = (link.favicon || 'img/default_favicon.png');
-            link.cls = (link.viewed ? 'viewed' : 'new');
-            var element = $(_.template(BS.templates.linkItem, link));
-            element.data('link', link);
-            linkList.append(element);
+            linkList.append(BS.RenderLink(link));
         });
+    });
+    
+    // Setup the long-lived connection with the backend for incoming links
+    BS.BackendConnection = chrome.extension.connect({
+        'name': 'postmanUiConnection'
+    });
+    BS.BackendConnection.onMessage.addListener(function(req){
+        switch(req.method){
+            case 'incomingLink':
+                var element = BS.RenderLink(req.link);
+                // Animate in
+                element.hide();
+                $('#link-list').prepend(element);
+                element.slideDown();
+                break;
+            default:
+                throw 'unsupported method ' + req.method;
+        }
     });
     
     // Get the Facbeook API token from the backend
