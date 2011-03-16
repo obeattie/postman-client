@@ -13,6 +13,7 @@ BS.Facebook = {
     
     setToken: function(token){
         localStorage['facebookToken'] = token;
+        BS.socketConnect();
     },
     
     _isAuthenticated: function(){

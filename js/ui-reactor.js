@@ -85,15 +85,14 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 });
 
 // Persistent connection to the UI, if a link arrives while it's open
-BS.UIConnection = _.identity;
+BS.UIConnection = null;
 chrome.extension.onConnect.addListener(function(port){
     console.assert(port.name == 'postmanUiConnection');
     BS.UIConnection = port;
     console.log('UI port connected');
-    // When the port is disconnected, re-alias to the identity function
-    // (which does nothing when called)
+    // When the port is disconnected, reset the port to null
     port.onDisconnect.addListener(function(){
         console.log('UI port disconnected');
-        BS.UIConnection = _.identity;
+        BS.UIConnection = null;
     });
 });
