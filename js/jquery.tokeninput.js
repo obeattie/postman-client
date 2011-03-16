@@ -513,16 +513,16 @@
         
         // Deletes all active selections and returns to an initial state
         function reset(){
-            token_list.find('li').each(function(i, el){
-                delete_token(i);
+            token_list.find('li:not(.' + settings.classes.inputToken + ')').each(function(i, el){
+                delete_token($(el));
             });
             input_box.val('');
             hidden_input.val('');
             show_placeholder();
         }
         
-        hidden_input.bind('reset', _.bind(function(){
-            _.bind(reset, this)();
+        $(hidden_input).closest('form').bind('reset', _.bind(function(){
+            reset();
         }, this));
 
         // Hide and clear the results dropdown

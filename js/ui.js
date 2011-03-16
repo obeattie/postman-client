@@ -70,7 +70,7 @@ $(document).ready(function(){
                     if (response.status === 'ok'){
                         BS.UIAlerts.success('Sent!')
                         // Reset the form
-                        $('#recipients').trigger('reset');
+                        $('form').trigger('reset');
                     } else {
                         BS.UIAlerts.error('There was a problem sending your link')
                     }
