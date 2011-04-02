@@ -112,7 +112,7 @@ BS.Facebook = {
         return this._post('https://graph.facebook.com/' + uid + '/feed', {
             'link': link.url,
             'name': link.title
-        });
+        }, cb);
     }
 }
 

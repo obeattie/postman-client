@@ -19,8 +19,8 @@ _.templateSettings = {
 };
 
 BS.templates = {
-    'linkItem': '<li linkId="{{ id }}" class="{{ cls }}"><img src="{{ favicon }}" alt="Favicon" /><div class="content"><a href="{{ url }}" class="link">{{ title }}</a><span>From <a href="http://www.facebook.com/profile.php?id={{ sender }}">{{ senderName }}</a></span></div></li>',
-    'fbAuthUrl': 'https://graph.facebook.com/oauth/authorize?type=user_agent&client_id={{ appId }}&redirect_uri=http://www.facebook.com/connect/login_success.html&scope=publish_stream'
+    'linkItem': '<li linkId="{{ id }}" class="{{ cls }}"><img src="{{ favicon }}" alt="Favicon" /><div class="content"><a href="{{ url }}" class="link">{{ title }}</a><span>From <a href="http://www.facebook.com/profile.php?id={{ sender }}">{{ senderName }}</a><br />{{ timesince }}</span></div></li>',
+    'fbAuthUrl': 'https://graph.facebook.com/oauth/authorize?type=user_agent&client_id={{ appId }}&redirect_uri=http://www.facebook.com/connect/login_success.html&scope=publish_stream,offline_access'
 }
 
 // Facebook API setup
@@ -30,15 +30,50 @@ FB._domain = {
     'www': 'https://www.facebook.com/'
 };
 
-// Truncation helper
+// Native object helpers
 String.prototype.trunc = function(n){
     return this.substr(0,n-1)+(this.length>n ? String.fromCharCode(8230) : '');
 };
+
+String.prototype.pluralize = function(number, plural){
+    plural = (plural || (this + 's'));
+    return ((number === 1) ? this : plural);
+};
+
+String.prototype.capitalize = function(){
+    return (this.charAt(0).toUpperCase() + this.substring(1));
+}
+
+Date.prototype.nicedelta = function(to){
+    // Returns a nicely formatted representation of how long has passed between
+    // the passed date and to (defaults to now)
+    to = (to || new Date());
+    console.assert(to > this);
+    var delta = parseInt((to.getTime() - this) / 1000);
+    delta = delta + (to.getTimezoneOffset() * 60);
+    
+    if (delta < 60){
+        return 'just now';
+    } else if (delta < 120) {
+        return 'a minute ago';
+    } else if (delta < (60*60)) {
+        return (parseInt(delta / 60)).toString() + ' minutes ago';
+    } else if (delta < (120*60)) {
+        return 'an hour ago';
+    } else if (delta < (24*60*60)) {
+        return (parseInt(delta / 3600)).toString() + ' hours ago';
+    } else if (delta < (48*60*60)) {
+        return 'yesterday';
+    } else {
+        return (parseInt(delta / 86400)).toString() + ' days ago';
+    }
+}
 
 // Link render
 BS.RenderLink = function(link){
     link.favicon = (link.favicon || 'img/default_favicon.png');
     link.cls = (link.viewed ? 'viewed' : 'new');
+    link.timesince = (new Date(link.timestamp)).nicedelta().capitalize();
     var element = $(_.template(BS.templates.linkItem, link));
     element.data('link', link);
     return element;

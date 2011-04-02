@@ -12,7 +12,5 @@ if (fragment.match(/#access_token=(.*?)[&$]/)){
     chrome.extension.sendRequest({
         method: 'setFBToken',
         token: token
-    }, function(){
-        window.close();
-    });
+    }, _.bind(window.close, this));
 }
