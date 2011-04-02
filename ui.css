@@ -143,7 +143,7 @@ POSTBOX
             }
             
             ol li.viewed img,
-            ol li.viewed a {
+            ol li.viewed > a {
                 opacity: .6;
             }
     
