@@ -7,6 +7,21 @@
 */
 
 BS.Facebook = {
+    _getData: function(){
+        var fbData = localStorage['cachedFacebookData'];
+        if (!fbData){
+             fbData = {};
+             localStorage['cachedFacebookData'] = JSON.stringify(fbData);
+        } else {
+            fbData = JSON.parse(fbData);
+        }
+        return fbData;
+    },
+    
+    _setData: function(data){
+        localStorage['cachedFacebookData'] = JSON.stringify(data);
+    },
+    
     getToken: function(){
         return (localStorage['facebookToken'] || null);
     },
@@ -49,22 +64,25 @@ BS.Facebook = {
             throw 'user is not logged in';
         }
         
-        var fbData = localStorage['cachedFacebookData'];
-        if (!fbData){
-             fbData = {};
-             localStorage['cachedFacebookData'] = JSON.stringify(fbData);
-        } else {
-            fbData = JSON.parse(fbData);
-        }
-        
+        var fbData = this._getData();
         if (key in fbData){
-            // Return from cache if we can
+            // Return from cache if we can, but first set off a background
+            // refresh task (so we don't have overly stale data)
+            _.defer(_.bind(function(){
+                this._send(uri, params, _.bind(function(response){
+                    var newFbData = this._getData();
+                    newFbData[key] = response;
+                    this._setData(newFbData);
+                    console.log('Background refresh completed: ' + uri);
+                }, this));
+            }, this));
             return cb(fbData[key]);
         } else {
             // Go fetch the data if not
             this._send(uri, params, function(response){
-                fbData[key] = response;
-                localStorage['cachedFacebookData'] = JSON.stringify(fbData);
+                var newFbData = this._getData();
+                newFbData[key] = response;
+                this._setData(newFbData);
                 cb(response);
             });
         }
