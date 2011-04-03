@@ -96,7 +96,7 @@ String.prototype.score = function(abbreviation,offset) {
 
 // Friend results filter -- 
 BS.FriendResultsFilter = function(entries, query, cb){
-    var term = $.trim(query.toLowerCase());
+    query = $.trim(query.toLowerCase());
     var scores = _.map(entries, function(entry){
         return [entry.name.toLowerCase().score(query), entry];
     });
