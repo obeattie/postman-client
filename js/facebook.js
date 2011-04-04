@@ -28,7 +28,7 @@ BS.Facebook = {
     
     setToken: function(token){
         localStorage['facebookToken'] = token;
-        BS.socketConnect();
+        BS.socket.disconnect(); // Automatically reconnects
     },
     
     _isAuthenticated: function(){
@@ -79,12 +79,12 @@ BS.Facebook = {
             return cb(fbData[key]);
         } else {
             // Go fetch the data if not
-            this._send(uri, params, function(response){
+            this._send(uri, params, _.bind(function(response){
                 var newFbData = this._getData();
                 newFbData[key] = response;
                 this._setData(newFbData);
                 cb(response);
-            });
+            }, this));
         }
     },
     
