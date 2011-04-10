@@ -1,0 +1,5 @@
+@import url('reset.css');
+
+body {
+    background: -webkit-radial-gradient(center, 300px 700px, #f2ecdd, #c3ae83);
+}
