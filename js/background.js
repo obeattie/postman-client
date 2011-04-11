@@ -3,13 +3,15 @@
    -----
 */
 
-BS.host = 'obeattie.com';
+BS.host = 'postman.emberb0x.com';
 BS.port = 8080;
 BS.baseUrl = ('http://' + BS.host + ':' + BS.port);
 
 // Subscribe via websockets
 BS.socket = new io.Socket(BS.host, {
     'port': BS.port,
+    // Seems to cause problems when reconnecting. Even though it's not
+    // recommended, leaving it in for now
     'rememberTransport': false
 });
 

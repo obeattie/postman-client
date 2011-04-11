@@ -4,15 +4,31 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
 /* Postman */
 
 body {
-    background: -webkit-radial-gradient(center, 80% 100%, #f2ecdd, #c3ae83);
+    background: url('img/readytogo-postbox.png') 15px bottom no-repeat, -webkit-radial-gradient(center, 80% 100%, #f2ecdd, #c3ae83);
     font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+    height: 100%;
 }
 
-#content {
-    width: 400px;
-    height: 400px;
+#message {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -200px 0 0 -200px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url('img/readytogo.png') center center no-repeat;
+}
+
+    #message * {
+        display: none;
+    }
+
+#pointer {
+    display: block;
+    width: 205px;
+    height: 74px;
+    text-indent: -99999em;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    background: url('img/readytogo-pointer.png') no-repeat;
 }

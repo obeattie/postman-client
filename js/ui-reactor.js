@@ -59,7 +59,12 @@ BS.UIReactor = {
     
     setFBToken: function(req, sendResponse){
         BS.Facebook.setToken(req.token);
-        sendResponse('ok');
+        // Open the ready to go page
+        chrome.tabs.create({
+            'url': 'readytogo.html'
+        }, function(){
+            sendResponse('ok');
+        });
     },
     
     getFBToken: function(req, sendResponse){
