@@ -28,9 +28,9 @@ BS.UIReactor = {
                     'recipients': JSON.stringify(link.recipients)
                 },
                 function(response){
-                    console.log('Remote response', response);
+                    console.log('/send/ response', response);
                     if (response.status === 'ok'){
-                        return sendResponse({ 'status': 'ok', 'extra': response.extra });
+                        return sendResponse(response);
                     } else {
                         // Post to the unknown recipients' FB walls
                         var missingRe = /^user:unknown:(.+)$/,
