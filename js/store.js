@@ -81,6 +81,13 @@ BS.Store = {
         chrome.browserAction.setBadgeText({
             'text': (this.getUnviewed().length || '').toString()
         });
+    },
+    
+    addSentItem: function(link){
+        // Stores a link as having been sent
+        // Though this isn't used at the moment, it may very well be in the future
+        var sentLinks = localStorage['sentLinks'];
+        return (sentLinks ? JSON.parse(sentLinks) : {});
     }
 }
 
