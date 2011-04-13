@@ -87,7 +87,9 @@ BS.Store = {
         // Stores a link as having been sent
         // Though this isn't used at the moment, it may very well be in the future
         var sentLinks = localStorage['sentLinks'];
-        return (sentLinks ? JSON.parse(sentLinks) : {});
+        sentLinks = (sentLinks ? JSON.parse(sentLinks) : {});
+        sentLinks[link.id] = link;
+        localStorage['sentLinks'] = JSON.stringify(sentLinks);
     }
 }
 

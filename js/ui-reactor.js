@@ -8,6 +8,15 @@
 
 BS.UIReactor = {
     sendLink: function(link, sendResponse){
+        // Wrap sendResponse to add to sent items if the link was successfully sent
+        // (quick, dirty way to avoid duplicating code below)
+        sendResponse = _.wrap(sendResponse, function(func, response){
+            if (response.status === 'ok'){
+                BS.Store.addSentItem(response.extra.link);
+            }
+            return func(response);
+        });
+        
         BS.Facebook.getId(function(uid){
             var xhr = $.post(
                 (BS.baseUrl + '/send/'),
@@ -21,7 +30,7 @@ BS.UIReactor = {
                 function(response){
                     console.log('Remote response', response);
                     if (response.status === 'ok'){
-                        return sendResponse({ 'status': 'ok', 'extra': response });
+                        return sendResponse({ 'status': 'ok', 'extra': response.extra });
                     } else {
                         // Post to the unknown recipients' FB walls
                         var missingRe = /^user:unknown:(.+)$/,
