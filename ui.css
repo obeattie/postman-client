@@ -57,9 +57,20 @@ span {
     cursor: pointer;
 }
 
-#forms #post:active {
-    background-position: 0 -27px;
-}
+    #forms #post:hover {
+        background-position: 0 -27px;
+    }
+    
+    #forms #post:active {
+        background-position: 0 -54px;
+    }
+    
+    #forms #post[disabled],
+    #forms #post[disabled]:hover,
+    #forms #post[disabled]:active {
+        background-position: 0 -81px;
+        cursor: default;
+    }
 
 #holder {
     margin-top: 5px;
@@ -73,6 +84,10 @@ span {
     top: 7px;
     left: 11px;
 }
+
+    #friendPlaceholder.err {
+        color: #de0000;
+    }
 
 /******************************************
 POSTBOX

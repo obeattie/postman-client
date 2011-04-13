@@ -9,7 +9,7 @@
 BS.UIReactor = {
     sendLink: function(link, sendResponse){
         BS.Facebook.getId(function(uid){
-            $.post(
+            var xhr = $.post(
                 (BS.baseUrl + '/send/'),
                 {
                     'url': link.url,
@@ -34,6 +34,11 @@ BS.UIReactor = {
                             }
                         });
                         
+                        if (missingRecipients.length !== response.extra.length){
+                            // There was some other error, do not post to Facebook
+                            return sendResponse({ 'status': 'err', 'extra': response.extra });
+                        }
+                        
                         if (missingRecipients){
                             var cbCounter = 0;
                             _.each(missingRecipients, function(uid){
@@ -42,6 +47,8 @@ BS.UIReactor = {
                                     if (cbCounter === missingRecipients.length){
                                         return sendResponse({ 'status': 'ok', 'extra': fbResponse });
                                     }
+                                }, function(){
+                                    return sendResponse({ 'status': 'err' });
                                 });
                             });
                         } else {
@@ -50,6 +57,10 @@ BS.UIReactor = {
                     }
                 }
             );
+            // Sending failure handler
+            xhr.error(function(response){
+                return sendResponse({ 'status': 'err', 'extra': response });
+            });
         });
     },
     

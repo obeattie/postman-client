@@ -12,6 +12,8 @@ var BS = {
     }
 };
 
+var urlRe = /https?:\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+
 // Template settings
 _.templateSettings = {
     'interpolate': /\{\{(.+?)\}\}/g,
@@ -86,6 +88,12 @@ $(document).ready(function(){
         $('#title').val(tab.title);
         $('#titleDisplay').text(tab.title.trunc(25));
         $('#favicon').val(tab.favIconUrl);
+        
+        // If the URL isn't sendable, disable the form
+        if (!tab.url.match(urlRe)){
+            console.log('disabling input, url regex mismatch');
+            $('input[type=text], input[type=submit]').attr('disabled', true);
+        }
     });
     
     $('form').submit(function(e){
@@ -107,6 +115,7 @@ $(document).ready(function(){
                         // Reset the form
                         $('form').trigger('reset');
                     } else {
+                        console.log('error');
                         BS.UIAlerts.error('There was a problem sending your link')
                     }
                 }
@@ -188,7 +197,13 @@ $(document).ready(function(){
                 $('#recipients').tokenInput({
                     filterResults: filterFunc
                 });
-                $('ul input').focus();
+                if ($('#recipients').attr('disabled') !== true){
+                    $('ul input').focus();
+                } else {
+                    // Disabled
+                    $('ul input, #post').attr('disabled', true);
+                    $('#friendPlaceholder').text('Sorry, you can\'t send this page').addClass('err');
+                }
             });
         }
     });
