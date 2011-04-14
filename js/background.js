@@ -18,9 +18,18 @@ BS.socket = new io.Socket(BS.host, {
 BS.socket.on('message', function(data){
     data = JSON.parse(data);
     console.log('BS.socket.on:message:', data);
-    var links = BS.Store.add(data.links, function(addedLinks){
-        _.each(addedLinks, NotificationCenter.display);
-    });
+    switch (data.kind){
+        case 'incoming':
+            BS.Store.add(data.links, function(addedLinks){
+                _.each(addedLinks, NotificationCenter.display);
+            });
+            break;
+        case 'setAuthKey':
+            localStorage['authKey'] = data.key;
+        default:
+            throw 'unknown action: ' + data.kind
+            break;
+    }
 });
 
 // Connection function which can be called from any context
@@ -36,10 +45,17 @@ BS.socket.on('connect', function(){
     BS.Facebook.getId(function(uid){
         BS.socket.send(JSON.stringify({
             'method': 'listen',
-            'to': uid
+            'to': uid,
+            'authKey': localStorage['authKey']
         }));
     });
 });
+
+// If they have authenticated with FB but don't have Postman auth token,
+// remove the FB authentication
+if (('facebookToken' in localStorage) && !('authKey' in localStorage)){
+    delete localStorage['facebookToken'];
+}
 
 // When the page is ready, connect the socket
 $(document).ready(BS.socketConnect).ready(BS.Store.updateUnviewedCount);

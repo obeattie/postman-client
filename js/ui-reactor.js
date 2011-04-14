@@ -25,7 +25,8 @@ BS.UIReactor = {
                     'title': link.title,
                     'favicon': link.favicon,
                     'sender': uid,
-                    'recipients': JSON.stringify(link.recipients)
+                    'recipients': JSON.stringify(link.recipients),
+                    'authKey': localStorage['authKey']
                 },
                 function(response){
                     console.log('/send/ response', response);
