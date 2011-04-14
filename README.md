@@ -6,6 +6,8 @@ instant and effortless.
 
 Go install it [from the Chrome Web Store](https://chrome.google.com/webstore/detail/ceebmhkhkjlbcehplmobnnhbibghnenj)
 
+**This is the client part.** Find the source to the server [here](https://github.com/obeattie/postman-server).
+
 Gettin' all techie
 ------------------
 
