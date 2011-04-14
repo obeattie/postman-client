@@ -89,6 +89,30 @@ span {
         color: #de0000;
     }
 
+/* Spinner */
+#holder > svg {
+    display: none; /* Faded in */
+    position: absolute;
+    top: 2px;
+    right: 11px;
+    z-index: 100;
+}
+
+    /* Mask */
+    #holder #mask {
+        display: none; /* Faded in */
+        position: absolute;
+        top: 0;
+        left: 210px;
+        width: 54px;
+        height: 27px;
+        background: #000;
+        opacity: .3;
+        z-index: 99;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+    }
+
 /******************************************
 POSTBOX
 *******************************************/

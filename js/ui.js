@@ -102,6 +102,10 @@ $(document).ready(function(){
         recipients = _.select(recipients, _.identity);
         
         if (recipients.length){
+            // Display spinner
+            drawSpinner('holder', 5, 10, 12, 2, '#fff');
+            $('#mask, #holder svg').fadeIn('fast');
+            
             chrome.extension.sendRequest(
                 {
                     'method': 'sendLink',
@@ -110,6 +114,8 @@ $(document).ready(function(){
                     'favicon': $('#favicon').val(),
                     'recipients': recipients,
                 }, function(response){
+                    // always remove the spinner and mask
+                    $('#mask, #holder svg').fadeOut('fast');
                     if (response.status === 'ok'){
                         BS.UIAlerts.success('Sent!')
                         // Reset the form
