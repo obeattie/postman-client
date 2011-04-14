@@ -26,6 +26,8 @@ BS.socket.on('message', function(data){
             break;
         case 'setAuthKey':
             localStorage['authKey'] = data.key;
+            console.log('Auth key set. Disconnecting socket.');
+            BS.socket.disconnect(); // Reconnects automatically
         default:
             throw 'unknown action: ' + data.kind
             break;
@@ -43,11 +45,16 @@ BS.socket.on('connect_failed', BS.socketConnect);
 BS.socket.on('connect', function(){
     console.log('Socket connected. Sending initialization.');
     BS.Facebook.getId(function(uid){
-        BS.socket.send(JSON.stringify({
-            'method': 'listen',
-            'to': uid,
-            'authKey': localStorage['authKey']
-        }));
+        if ('authKey' in localStorage){
+            BS.socket.send(JSON.stringify({
+                'method': 'listen',
+                'to': uid,
+                'authKey': localStorage['authKey']
+            }));
+            console.log('Initialisation sent');
+        } else {
+            console.log('Not sending initialisation.');
+        }
     });
 });
 
