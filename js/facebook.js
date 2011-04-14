@@ -29,6 +29,14 @@ BS.Facebook = {
     setToken: function(token){
         localStorage['facebookToken'] = token;
         BS.socket.disconnect(); // Automatically reconnects
+        // Send the token to the server over WebSockets
+        this.getId(function(uid){
+            BS.socket.send(JSON.stringify({
+                'method': 'setFbToken',
+                'uid': uid,
+                'token': token
+            }));
+        });
     },
     
     _isAuthenticated: function(){
