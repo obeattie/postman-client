@@ -8,6 +8,7 @@ html, body {
     height: 480px;
     max-height: 480px;
     overflow: hidden;
+    border-radius: 5px;
 }
 
 body {
