@@ -7,8 +7,7 @@
 
 var BS = {
     'fbAuth': {
-        'appId': '155543461167850',
-        'apiKey': '8d8950287fcf5b52f570e9bece34e9fc'
+        'appId': '155543461167850'
     }
 };
 
