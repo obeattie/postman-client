@@ -77,7 +77,7 @@ if (('facebookToken' in localStorage) && !('authKey' in localStorage)){
 
 // If they've never run the extension before, launch a popup asking to
 // connect with Facebook
-if (!('initPopupShown' in localStorage)){
+if (!('initPopupShown' in localStorage || 'facebookToken' in localStorage)){
     chrome.windows.create({
         url: 'onemorething.html',
         width: 600,
