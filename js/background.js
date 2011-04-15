@@ -28,6 +28,10 @@ BS.socket.on('message', function(data){
             localStorage['authKey'] = data.key;
             console.log('Auth key set. Disconnecting socket.');
             BS.socket.disconnect(); // Reconnects automatically
+            break;
+        case 'deauth':
+            BS.deauth();
+            break;
         default:
             throw 'unknown action: ' + data.kind
             break;
@@ -60,9 +64,20 @@ BS.socket.on('connect', function(){
 
 // If they have authenticated with FB but don't have Postman auth token,
 // remove the FB authentication
-if (('facebookToken' in localStorage) && !('authKey' in localStorage)){
+BS.socketDisconnect = _.bind(BS.socket.disconnect, BS.socket);
+BS.deauth = function(){
+    console.warn('!!! Deauthorizing');
     delete localStorage['facebookToken'];
+    delete localStorage['authKey'];
+    BS.socketDisconnect();
 }
+if (('facebookToken' in localStorage) && !('authKey' in localStorage)){
+    BS.deauth();
+}
+
+// Periodically (every hour) forcibly disconnect the socket (which will immediately
+// reconnect)
+var periodicDisconnectionTimer = window.setTimeout(BS.socketDisconnect, 3600000);
 
 // When the page is ready, connect the socket
 $(document).ready(BS.socketConnect).ready(BS.Store.updateUnviewedCount);

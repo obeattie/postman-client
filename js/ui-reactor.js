@@ -30,7 +30,10 @@ BS.UIReactor = {
                 },
                 function(response){
                     console.log('/send/ response', response);
-                    if (response.status === 'ok'){
+                    if (response.status === 'ok') {
+                        return sendResponse(response);
+                    } else if (response.status === 'err' && response.extra === 'auth failure') {
+                        BS.deauth();
                         return sendResponse(response);
                     } else {
                         // Post to the unknown recipients' FB walls
