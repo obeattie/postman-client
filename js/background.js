@@ -85,6 +85,20 @@ if (('facebookToken' in localStorage) && !('authKey' in localStorage)){
     BS.deauth();
 }
 
+// If they've never run the extension before, launch a popup asking to
+// connect with Facebook
+if (!('initPopupShown' in localStorage || 'facebookToken' in localStorage)){
+    chrome.windows.create({
+        url: 'onemorething.html',
+        width: 600,
+        height: 300,
+        type: 'popup'
+    }, function(w){
+        localStorage['initPopupShown'] = 'true';
+        BS.initPopupId = w.id;
+    });
+}
+
 // Periodically (every hour) forcibly disconnect the socket (which will immediately
 // reconnect)
 var periodicDisconnectionTimer = window.setTimeout(BS.socketDisconnect, 3600000);

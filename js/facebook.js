@@ -46,6 +46,11 @@ BS.Facebook = {
                 }
             );
         });
+        // Close the init window if it's open
+        if (BS.initPopupId){
+            chrome.windows.remove(BS.initPopupId);
+            BS.initPopupId = undefined;
+        }
     },
     
     _isAuthenticated: function(){
