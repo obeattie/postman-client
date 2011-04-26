@@ -21,7 +21,7 @@ var NotificationCenter = {
             this.cancel();
         }, notification);
         notification.onclick = function(){
-            BS.Store.markViewed(link.id);
+            BS.Store.markVisited(link.id);
             chrome.tabs.create({
                 url: link.url
             }, closeNotification);

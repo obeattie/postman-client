@@ -7,7 +7,7 @@
 
 BS.Store = {
     _get: function(){
-        var links = localStorage['links']; 
+        var links = localStorage['links'];
         return (links ? JSON.parse(links) : {});
     },
     
@@ -61,25 +61,38 @@ BS.Store = {
             });
             // Store and return
             localStorage['links'] = JSON.stringify(storage);
-            this.updateUnviewedCount();
+            this.updateUnseenCount();
             cb(addedLinks);
         }, this));
     },
     
-    markViewed: function(id){
+    markVisited: function(id){
         // Marks the link with the passed id as viewed
         var links = this._get();
         links[id].viewed = true;
         localStorage['links'] = JSON.stringify(links);
-        this.updateUnviewedCount();
     },
     
-    updateUnviewedCount: function(){
+    resetUnseenCount: function(){
+        // Marks all links as seen
+        var links = this._get();
+        _.each(links, function(link, key){
+            link.seen = true;
+            links[key] = link;
+        });
+        localStorage['links'] = JSON.stringify(links);
+        this.updateUnseenCount();
+    },
+    
+    updateUnseenCount: function(){
         // Slightly misplaced function to update any unviewed link counters
         // (currently just the toolbar icon badge)
-        console.log('Updating unviewed counters');
+        console.log('Updating unseen counters');
+        var unseen = _.reject(this._get(), function(link){
+            return link.seen;
+        });
         chrome.browserAction.setBadgeText({
-            'text': (this.getUnviewed().length || '').toString()
+            'text': (unseen.length || '').toString()
         });
     },
     

@@ -104,4 +104,5 @@ if (!('initPopupShown' in localStorage || 'facebookToken' in localStorage)){
 var periodicDisconnectionTimer = window.setTimeout(BS.socketDisconnect, 3600000);
 
 // When the page is ready, connect the socket
-$(document).ready(BS.socketConnect).ready(BS.Store.updateUnviewedCount);
+$(document).ready(BS.socketConnect);
+$(document).ready(BS.Store.updateUnseenCount);

@@ -96,13 +96,13 @@ BS.UIReactor = {
         sendResponse(BS.Facebook.getToken());
     },
     
-    markViewed: function(req, sendResponse){
-        BS.Store.markViewed(req.id);
+    markVisited: function(req, sendResponse){
+        BS.Store.markVisited(req.id);
         sendResponse('ok');
     },
     
-    updateUnviewedCount: function(req, sendResponse){
-        BS.Store.updateUnviewedCount();
+    resetUnseenCount: function(req, sendResponse){
+        BS.Store.resetUnseenCount();
         sendResponse('ok');
     }
 }

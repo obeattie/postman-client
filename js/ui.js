@@ -150,7 +150,7 @@ $(document).ready(function(){
             // Mark as viewed
             if (link){
                 chrome.extension.sendRequest({
-                    'method': 'markViewed',
+                    'method': 'markVisited',
                     'id': link.id
                 });
             }
@@ -223,4 +223,7 @@ $(document).ready(function(){
             'width=600,height=300'
         );
     });
+    
+    // Reset the counter to 0
+    chrome.extension.sendRequest({ 'method': 'resetUnseenCount' });
 });
