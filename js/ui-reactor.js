@@ -26,7 +26,8 @@ BS.UIReactor = {
                     'favicon': link.favicon,
                     'sender': uid,
                     'recipients': JSON.stringify(link.recipients),
-                    'authKey': localStorage['authKey']
+                    'authKey': localStorage['authKey'],
+                    'clientId': BS.clientId
                 },
                 function(response){
                     console.log('/send/ response', response);
@@ -82,12 +83,12 @@ BS.UIReactor = {
     },
     
     setFBToken: function(req, sendResponse){
-        BS.Facebook.setToken(req.token);
-        // Open the ready to go page
-        chrome.tabs.create({
-            'url': 'readytogo.html'
-        }, function(){
-            sendResponse('ok');
+        BS.Facebook.setToken(req.token, function(){
+            chrome.tabs.create({
+                'url': 'readytogo.html'
+            }, function(){
+                sendResponse('ok');
+            });
         });
     },
     

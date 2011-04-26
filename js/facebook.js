@@ -26,16 +26,25 @@ BS.Facebook = {
         return (localStorage['facebookToken'] || null);
     },
     
-    setToken: function(token){
+    setToken: function(token, cb){
         localStorage['facebookToken'] = token;
         // Send the token to the server over WebSockets
         this.getId(function(uid){
             console.log('Sending FB token to server');
-            BS.socket.send(JSON.stringify({
-                'method': 'setFbToken',
-                'uid': uid,
-                'token': token
-            }));
+            var xhr = $.post(
+                (BS.baseUrl + '/auth/'),
+                {
+                    'uid': uid,
+                    'clientId': BS.clientId,
+                    'token': token
+                },
+                function(response){
+                    console.assert(response.status === 'ok');
+                    localStorage['authKey'] = response.authKey;
+                    BS.socket.disconnect(); // Reconnects automatically
+                    cb();
+                }
+            );
         });
     },
     

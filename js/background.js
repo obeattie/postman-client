@@ -3,9 +3,24 @@
    -----
 */
 
+BS._genClientId = function(){
+    'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+    });
+}
+
 BS.host = 'postman.emberb0x.com';
 BS.port = 8080;
 BS.baseUrl = ('http://' + BS.host + ':' + BS.port);
+
+// Get or set the client ID
+if ('clientId' in localStorage){
+    BS.clientId = localStorage['clientId'];
+} else {
+    BS.clientId = BS._genClientId();
+    localStorage['clientId']: BS.clientId;
+}
 
 // Subscribe via websockets
 BS.socket = new io.Socket(BS.host, {
@@ -23,11 +38,6 @@ BS.socket.on('message', function(data){
             BS.Store.add(data.links, function(addedLinks){
                 _.each(addedLinks, NotificationCenter.display);
             });
-            break;
-        case 'setAuthKey':
-            localStorage['authKey'] = data.key;
-            console.log('Auth key set. Disconnecting socket.');
-            BS.socket.disconnect(); // Reconnects automatically
             break;
         case 'deauth':
             BS.deauth();
