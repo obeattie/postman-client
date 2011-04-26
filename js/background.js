@@ -11,7 +11,7 @@ BS._genClientId = function(){
 }
 
 BS.host = 'postman.emberb0x.com';
-BS.port = 8080;
+BS.port = 8088;
 BS.baseUrl = ('http://' + BS.host + ':' + BS.port);
 
 // Get or set the client ID
