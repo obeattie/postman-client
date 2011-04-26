@@ -4,7 +4,7 @@
 */
 
 BS._genClientId = function(){
-    'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
         return v.toString(16);
     });
@@ -19,7 +19,7 @@ if ('clientId' in localStorage){
     BS.clientId = localStorage['clientId'];
 } else {
     BS.clientId = BS._genClientId();
-    localStorage['clientId']: BS.clientId;
+    localStorage['clientId'] = BS.clientId;
 }
 
 // Subscribe via websockets
@@ -63,9 +63,9 @@ BS.socket.on('connect', function(){
             BS.socket.send(JSON.stringify({
                 'method': 'listen',
                 'to': uid,
-                'authKey': localStorage['authKey']
+                'authKey': localStorage['authKey'],
+                'clientId': BS.clientId
             }));
-            console.log('Initialisation sent');
         } else {
             console.log('Not sending initialisation.');
         }
