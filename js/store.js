@@ -70,7 +70,9 @@ BS.Store = {
         // Marks the link with the passed id as viewed
         var links = this._get();
         links[id].viewed = true;
+        links[id].seen = true;
         localStorage['links'] = JSON.stringify(links);
+        this.updateUnseenCount();
     },
     
     resetUnseenCount: function(){

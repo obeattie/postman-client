@@ -17,6 +17,19 @@ BS.Upgrades = {
         });
         localStorage['links'] = JSON.stringify(links);
         BS.Store.updateUnseenCount();
+    },
+    
+    '1.1.7': function(){
+        // Fix the seen counters so things that are visited are also seen (this
+        // wouldn't happen if they clicked the link in the notification or an
+        // open popup in 1.1.6)
+        var links = BS.Store._get();
+        _.each(links, function(value, key){
+            value.seen = (value.seen || value.viewed);
+            links[key] = value;
+        });
+        localStorage['links'] = JSON.stringify(links);
+        BS.Store.updateUnseenCount();
     }
 }
 
