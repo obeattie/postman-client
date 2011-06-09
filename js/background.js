@@ -99,9 +99,9 @@ if (!('initPopupShown' in localStorage || 'facebookToken' in localStorage)){
     });
 }
 
-// Periodically (every hour) forcibly disconnect the socket (which will immediately
+// Periodically (every half hour) forcibly disconnect the socket (which will immediately
 // reconnect)
-var periodicDisconnectionTimer = window.setTimeout(BS.socketDisconnect, 3600000);
+BS.periodicDisconnectionTimer = window.setInterval(BS.socketDisconnect, 1800000);
 
 // When the page is ready, connect the socket
 $(document).ready(BS.socketConnect);
